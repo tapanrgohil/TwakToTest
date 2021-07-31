@@ -2,9 +2,7 @@ package com.tapan.twaktotest.ui.custom
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.FrameLayout
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.jakewharton.threetenabp.AndroidThreeTen.init
 import com.tapan.twaktotest.R
 import com.tapan.twaktotest.data.core.Resource
 import com.tapan.twaktotest.data.exception.ErrorCallback
@@ -12,7 +10,6 @@ import com.tapan.twaktotest.data.exception.ErrorResolver
 import com.tapan.twaktotest.databinding.LoadingViewBinding
 import com.tapan.twaktotest.util.gone
 import com.tapan.twaktotest.util.visible
-import dagger.Binds
 
 class CustomLoader : ConstraintLayout, LoadingView, ErrorCallback {
 

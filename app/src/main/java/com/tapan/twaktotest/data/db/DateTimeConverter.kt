@@ -1,20 +1,18 @@
 package com.tapan.twaktotest.data.db
 
 import androidx.room.TypeConverter
-import org.threeten.bp.Instant
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZonedDateTime
+import java.util.*
 
 class DateTimeConverter {
 
     @TypeConverter
-    fun fromDateTime(dateTime: ZonedDateTime): Long {
-        return dateTime.toEpochSecond()
+    fun fromDateTime(dateTime: Date): Long {
+        return dateTime.time
     }
 
     @TypeConverter
-    fun toDateTime(millis: Long): ZonedDateTime {
-        return ZonedDateTime.ofInstant(Instant.ofEpochSecond(millis), ZoneId.systemDefault())
+    fun toDateTime(millis: Long): Date {
+        return Date(millis)
     }
 
 }

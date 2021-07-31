@@ -103,7 +103,7 @@ class UserAdapter(private val clickCallBack: (UserUiModel, View) -> Unit) :
         if (holder is ProgressViewHolder) {
             holder.bind(getCurrentList()[position])
         } else if (holder is UserViewHolder) {
-            getCurrentList()[position]?.let { holder.bind(it) }
+            getCurrentList()[position].let { holder.bind(it) }
         }
     }
 

@@ -69,7 +69,7 @@ class AppException : RuntimeException {
         )
     }
 
-    constructor(errorCode: Int, message: String, stringProvider: StringProvider? = null) : super() {
+    constructor(errorCode: Int, message: String) : super() {
         this.errorCode = errorCode
         this.errorMessage = message
     }

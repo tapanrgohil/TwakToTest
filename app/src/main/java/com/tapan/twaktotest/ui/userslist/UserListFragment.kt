@@ -13,9 +13,7 @@ import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.LayoutMode
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.bottomsheets.BottomSheet
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.tapan.twaktotest.R
 import com.tapan.twaktotest.data.core.Status
@@ -62,19 +60,19 @@ class UserListFragment : Fragment(R.layout.user_list_fragment) {
         val dispatcher = requireActivity().onBackPressedDispatcher
         dispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val dialog = MaterialDialog(requireContext(), BottomSheet(LayoutMode.WRAP_CONTENT))
-                dialog.show {
-                    title(text = getString(R.string.are_you_sure))
-                    message(text = getString(R.string.are_you_sure_message))
-                    positiveButton(text = getString(R.string.yes)) { dialog ->
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(R.string.are_you_sure)
+                    .setMessage(R.string.are_you_sure_message)
+                    .setPositiveButton(R.string.yes) { dialog, _ ->
                         isEnabled = false
-                        dialog.dismiss()
                         requireActivity().onBackPressed()
-                    }
-                    negativeButton(text = getString(R.string.no)) { dialog ->
                         dialog.dismiss()
                     }
-                }
+                    .setNegativeButton(R.string.yes) { dialog, _ ->
+
+                        dialog.dismiss()
+                    }.show()
+
             }
         })
         setHasOptionsMenu(true)
@@ -94,8 +92,8 @@ class UserListFragment : Fragment(R.layout.user_list_fragment) {
 
         } else {
             query = searchView?.query?.toString()
-          /*  if (query.isNullOrEmpty())
-                userAdapter.stopShimmer()*/
+            /*  if (query.isNullOrEmpty())
+                  userAdapter.stopShimmer()*/
 
         }
         return binding.root
