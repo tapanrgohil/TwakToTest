@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.details.UserDetailsFragment">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivUser"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintDimensionRatio="1:.75"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.tapan.twaktotest.ui.custom.HorizontalLabelValueView
+            android:id="@+id/hlvFollower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:label="@string/follower"
+            app:layout_constraintEnd_toStartOf="@+id/hlvFollowing"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivUser" />
+
+        <com.tapan.twaktotest.ui.custom.HorizontalLabelValueView
+            android:id="@+id/hlvFollowing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:label="@string/following"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/hlvFollower"
+            app:layout_constraintTop_toTopOf="@id/hlvFollower" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="8dp"
+            app:layout_constraintTop_toBottomOf="@id/hlvFollower">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.tapan.twaktotest.ui.custom.HorizontalLabelValueView
+                    android:id="@+id/hlvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:label="@string/name"
+                    app:labelColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.tapan.twaktotest.ui.custom.HorizontalLabelValueView
+                    android:id="@+id/hlvCompany"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:label="@string/company"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hlvName" />
+
+                <com.tapan.twaktotest.ui.custom.HorizontalLabelValueView
+                    android:id="@+id/hlvBlog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:label="@string/blog"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hlvCompany" />
+
+                <com.tapan.twaktotest.ui.custom.HorizontalLabelValueView
+                    android:id="@+id/hlvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:label="@string/email"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hlvBlog" />
+
+                <com.tapan.twaktotest.ui.custom.HorizontalLabelValueView
+                    android:id="@+id/hlvTwitter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:label="@string/twitterUsename"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hlvEmail" />
+
+                <com.tapan.twaktotest.ui.custom.HorizontalLabelValueView
+                    android:id="@+id/hlvBio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:label="@string/bio"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hlvTwitter" />
+
+                <com.tapan.twaktotest.ui.custom.HorizontalLabelValueView
+                    android:id="@+id/hlvLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:label="@string/location"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hlvBio" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp"
+            app:cardUseCompatPadding="true"
+            app:contentPadding="8dp"
+            app:layout_constraintTop_toBottomOf="@id/cvDetails">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvNote"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/note"
+                    android:textColor="@android:color/primary_text_dark"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@color/light_grey"
+                    android:lines="4"
+                    app:layout_constraintTop_toBottomOf="@id/tvNote" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btSave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Save"
+                    android:textAllCaps="false"
+                    app:cornerRadius="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/etNote"
+                    app:layout_constraintWidth_percent=".4"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="1dp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>
+

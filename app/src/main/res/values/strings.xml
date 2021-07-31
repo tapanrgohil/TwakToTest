@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">TwakToTest</string>
+
+    <string name="no_internet_connectivity">No Internet Connectivity</string>
+    <string name="internal_error">We\'ve encountered an internal error!</string>
+    <string name="conflict_response">Conflict response</string>
+    <string name="unknown_error">Unknown error encountered!</string>
+    <string name="error_timeout">Request timed out!</string>
+    <string name="payload_too_large">This file is too large. Please select a smaller one.</string>
+    <string name="unauthorized_error">Unauthorised!</string>
+    <string name="invalid_credentials">The email/mobile number and password provided do not match an account in our system. Please try again.</string>
+    <string name="link_not_found">Link not found</string>
+    <string name="access_denied">Access denied</string>
+    <string name="server_error">Server Error</string>
+    <string name="retry">Retry</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="nothing_to_display">Nothing to display</string>
+    <string name="search">Search</string>
+    <string name="bad_request">bad_request</string>
+    <string name="no_data_found">No data found</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="are_you_sure_message">Are you sure you want to exit?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="notification_title">Caching Media</string>
+    <string name="notification_subtitle">image cache is in progress</string>
+    <string name="notification_complete">process finished</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
+    <string name="name">Name</string>
+    <string name="company">Company</string>
+    <string name="blog">Blog</string>
+    <string name="twitterUsename">Twitter UserName</string>
+    <string name="location">Location</string>
+    <string name="email">Email</string>
+    <string name="bio">Bio</string>
+    <string name="note">Note</string>
+    <string name="user_list">User List</string>
+    <string name="ok">Ok</string>
+</resources>
