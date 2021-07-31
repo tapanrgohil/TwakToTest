@@ -40,7 +40,6 @@ abstract class NetworkResource<RESULT, REQUEST> {
                 return@flow
             }
 
-            delay(2000)
             val apiResponse = fetchFromRemote(localFlow?.first())
             val data = apiResponse.body()
             if (apiResponse.isSuccessful && data != null) {

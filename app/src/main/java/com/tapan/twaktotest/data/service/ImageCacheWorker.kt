@@ -8,6 +8,7 @@ import android.content.Context.NOTIFICATION_SERVICE
 import android.os.Build.VERSION.SDK_INT
 import android.os.Build.VERSION_CODES.O
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationCompat.PRIORITY_DEFAULT
 import androidx.core.app.NotificationCompat.PRIORITY_MAX
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
@@ -64,8 +65,9 @@ class ImageCacheWorker @AssistedInject constructor(
             .setContentTitle(titleNotification)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentText(subtitleNotification)
+            .setSilent(true)
 
-        notification.priority = PRIORITY_MAX
+        notification.priority = PRIORITY_DEFAULT
 
         if (SDK_INT >= O) {
             notification.setChannelId(NOTIFICATION_CHANNEL)

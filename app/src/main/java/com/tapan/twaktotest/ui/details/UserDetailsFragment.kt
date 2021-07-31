@@ -59,7 +59,8 @@ class UserDetailsFragment : Fragment(R.layout.user_details_fragment) {
             hlvTwitter.value = it.twitterUsername ?: "-"
             hlvBio.value = it.bio ?: "-"
             hlvLocation.value = it.location ?: "-"
-
+            if (etNote.text.toString().isEmpty())
+                etNote.setText(it.note.orEmpty())
         }
     }
 
@@ -70,7 +71,16 @@ class UserDetailsFragment : Fragment(R.layout.user_details_fragment) {
             extras.avatarUrl?.let {
                 ivUser.load(it)
             }
+            btSave.setOnClickListener {
+                saveNote()
+            }
         }
+
+    }
+
+    private fun saveNote() {
+        val note = binding.etNote.text.toString()
+        viewModel.saveNote(note, extras.id)
 
     }
 

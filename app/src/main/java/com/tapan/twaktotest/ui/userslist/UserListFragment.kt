@@ -38,6 +38,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class UserListFragment : Fragment(R.layout.user_list_fragment) {
 
+    val queryState = "query";
     private var searchMenu: MenuItem? = null
 
     @Inject
@@ -52,6 +53,8 @@ class UserListFragment : Fragment(R.layout.user_list_fragment) {
     private var queryTextChangedJob: Job? = null
 
     private lateinit var userAdapter: UserAdapter
+
+    private var query: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,11 +85,18 @@ class UserListFragment : Fragment(R.layout.user_list_fragment) {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        if (!::binding.isInitialized) {
+    ): View {
+        if (!::binding.isInitialized) { //to create shared element transition
             binding = UserListFragmentBinding.inflate(layoutInflater)
             initUi()
             attachNetworkObserver()
+            attachObserver()
+
+        } else {
+            query = searchView?.query?.toString()
+          /*  if (query.isNullOrEmpty())
+                userAdapter.stopShimmer()*/
+
         }
         return binding.root
     }
@@ -109,9 +119,9 @@ class UserListFragment : Fragment(R.layout.user_list_fragment) {
         }
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        attachObserver()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -124,32 +134,46 @@ class UserListFragment : Fragment(R.layout.user_list_fragment) {
             queryHint = getString(R.string.search)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
+                    startSearch(query)
                     return true
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    queryTextChangedJob?.cancel()
-                    queryTextChangedJob = lifecycleScope.launch(Dispatchers.Main) {
-                        delay(500)
-                        newText?.let {
-                            if (it.isNotEmpty())
-                                viewModel.filter(it)
-                        }
-                    }
+                    startSearch(newText)
                     return true
                 }
             })
         }
         searchView?.setOnCloseListener {
+            searchView?.setQuery("", false)
+            query = ""
             clearSearch()
             false
         }
+        if (!query.isNullOrEmpty()) {
+            searchView?.setQuery(query.orEmpty(), false)
+            searchView?.isIconified = false
+        }
+    }
 
+    private fun startSearch(newText: String?) {
+        queryTextChangedJob?.cancel()
+        queryTextChangedJob = lifecycleScope.launch(Dispatchers.IO) {
+            requireActivity().runOnUiThread {
+                binding.rvUsers.removeOnScrollListener(scrollListener)
+            }
+            delay(500)
+            newText?.let {
+                if (it.isNotEmpty())
+                    viewModel.filter(it)
+            }
+        }
     }
 
     private fun clearSearch() {
         viewModel.clearSearch()
         binding.rvUsers.post {
+            userAdapter.submitList(viewModel.userListLiveData.value?.data.orEmpty())
             binding.rvUsers.layoutManager?.scrollToPosition(0)
             binding.rvUsers.addOnScrollListener(scrollListener)
         }
@@ -203,7 +227,7 @@ class UserListFragment : Fragment(R.layout.user_list_fragment) {
         findNavController()
             .navigate(
                 UserListFragmentDirections.actionUserListFragmentToUserDetailsFragment(
-                    userUiModel.login, userUiModel.id.toString(), userUiModel.avatarUrl
+                    userUiModel.login, userUiModel.id, userUiModel.avatarUrl
                 ), extras
             )
     }
@@ -232,4 +256,6 @@ class UserListFragment : Fragment(R.layout.user_list_fragment) {
             scrollListener
         )
     }
+
+
 }

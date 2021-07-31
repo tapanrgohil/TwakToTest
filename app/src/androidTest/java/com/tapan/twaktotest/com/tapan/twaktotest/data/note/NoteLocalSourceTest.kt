@@ -63,6 +63,22 @@ class NoteLocalSourceTest {
         }
     }
 
+    @Test
+    @Throws(IOException::class)
+    fun testDeleteIfEmptyInsert() {
+        val userEntity = getEntities().first()
+        userDao.insert(userEntity)
+        noteLocalSource.insertNote(NoteEntity(userEntity.id, "test"))
+        userDao.getUserByLoginSingle(userEntity.login).let {
+            assert(it.note?.note == "test")
+        }
+        noteLocalSource.insertNote(NoteEntity(userEntity.id, ""))
+
+        userDao.getUserByLoginSingle(userEntity.login).let {
+            assert(it.note==null)
+        }
+    }
+
     @After
     @Throws(IOException::class)
     fun closeDb() {

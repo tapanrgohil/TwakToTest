@@ -52,7 +52,6 @@ class UserListViewModel @Inject constructor(
 
     fun clearSearch() {
         flowSeach?.cancel(CancellationException("New request"))
-        getAllUsers(0)
     }
 
 

@@ -4,7 +4,7 @@ import androidx.room.*
 
 @Entity(
     tableName = "NOTE",
-    indices = [Index("USER_ID", "NOTE", unique = true)],
+    indices = [Index("USER_ID", unique = true)],
     foreignKeys = [ForeignKey(
         entity = UserEntity::class,
         parentColumns = arrayOf("ID"),
