@@ -15,15 +15,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TwakToTest">
-        <activity android:name=".MainActivity"
+        <activity
+            android:exported="true"
+            android:name=".ui.MainComposeActivity"
+            android:theme="@style/Theme.TwakToTest.NoActionBar"
             android:configChanges="screenSize|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
             android:authorities="${applicationId}.workmanager-init"

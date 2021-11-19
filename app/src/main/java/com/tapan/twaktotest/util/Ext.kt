@@ -73,9 +73,58 @@ fun <T> Flow<T>.launchInBackGround(
             .launchIn(viewModel.viewModelScope)
 }
 
+fun <T> Flow<T>.launchInBackGround(
+    viewModel: ViewModel,
+    mutableLiveData: MutableStateFlow<T>? = null
+): Job {
+    return if (mutableLiveData != null) {
+        flowOn(Dispatchers.IO)
+            .onEach {
+                mutableLiveData.value = it
+            }
+            .launchIn(viewModel.viewModelScope)
+    } else
+        flowOn(Dispatchers.IO)
+            .launchIn(viewModel.viewModelScope)
+}
+
 
 fun <R> LifecycleOwner.handleLoadingResponse(
     liveData: LiveData<Resource<R>>,
+    loadingView: LoadingView? = null,
+    @UiThread
+    error: (() -> Unit)? = null,
+    @UiThread
+    process: ((R) -> Unit)? = null,
+
+) {
+    observe(liveData) {
+        it?.apply {
+            when (this.status) {
+                Status.SUCCESS -> {
+                    data?.let { it1 -> process?.invoke(it1) }
+                    loadingView?.onStopLoading(true)
+                }
+                Status.ERROR -> {
+                    it.throwable?.printStackTrace()
+                    loadingView?.onStopLoading(
+                        false,
+                        it.throwable?.message ?: it.message.orEmpty(),
+                        it
+                    )
+                error?.invoke()
+                }
+                Status.LOADING -> {
+                    loadingView?.onInit()
+                    loadingView?.onStartLoading()
+                }
+            }
+        }
+    }
+}
+
+fun <R> LifecycleOwner.handleLoadingResponse(
+    liveData: StateFlow<Resource<R>>,
     loadingView: LoadingView? = null,
     @UiThread
     error: (() -> Unit)? = null,

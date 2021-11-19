@@ -12,6 +12,8 @@ import com.tapan.twaktotest.util.launchInBackGround
 import com.tapan.twaktotest.util.mapResource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import java.util.concurrent.CancellationException
 import javax.inject.Inject
 
@@ -23,11 +25,12 @@ class UserListViewModel @Inject constructor(
     private var flowUsers: Job? = null
     private var flowSeach: Job? = null
 
-    private val _userListLiveData = MutableLiveData<Resource<List<UserAdapterModel>>>()
-    val userListLiveData = _userListLiveData as LiveData<Resource<List<UserAdapterModel>>>
+    private val _userListLiveData =
+        MutableStateFlow<Resource<List<UserAdapterModel>>>(Resource.idle())
+    val userListLiveData = _userListLiveData as StateFlow<Resource<List<UserAdapterModel>>>
 
-    private val _searchUserLiveData = MutableLiveData<Resource<List<UserAdapterModel>>>()
-    val searchUserLiveData = _searchUserLiveData as LiveData<Resource<List<UserAdapterModel>>>
+    private val _searchUserLiveData = MutableStateFlow<Resource<List<UserAdapterModel>>>(Resource.idle())
+    val searchUserLiveData = _searchUserLiveData as StateFlow<Resource<List<UserAdapterModel>>>
 
 
     fun getAllUsers(since: Int) {

@@ -15,9 +15,7 @@ import com.tapan.twaktotest.util.mapResource
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,8 +24,8 @@ class UserDetailsViewModel
     private val userRepository: UserRepository
 ) : ViewModel() {
 
-    private val _userDetailsLiveData = MutableLiveData<Resource<UserUiModel>>()
-    val userDetailsLiveData = _userDetailsLiveData as LiveData<Resource<UserUiModel>>
+    private val _userDetailsLiveData = MutableStateFlow<Resource<UserUiModel>>(Resource.idle())
+    val userDetailsLiveData = _userDetailsLiveData as StateFlow<Resource<UserUiModel>>
 
     fun getUserDetails(login: String) {
         userRepository.getUserDetails(login)

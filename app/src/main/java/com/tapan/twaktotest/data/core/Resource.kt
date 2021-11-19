@@ -31,11 +31,15 @@ data class Resource<out T>(
         fun <T> loading(data: T? = null): Resource<T> {
             return Resource(Status.LOADING, data)
         }
+        fun <T> idle(data: T? = null): Resource<T> {
+            return Resource(Status.IDLE, data)
+        }
     }
 }
 
 enum class Status {
     SUCCESS,
     ERROR,
-    LOADING
+    LOADING,
+    IDLE
 }
